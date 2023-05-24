@@ -54,6 +54,8 @@ class DbGenerator:
                             )
                             loops += 1
                         document[name] = values
+                elif value[0] == "date":
+                    document[name] = utils.generate_value(type=value[0])
                 else:
                     document[name] = utils.generate_value(
                         type=value[0], min=value[1], max=value[2]

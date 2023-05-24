@@ -1,7 +1,7 @@
 from typing import Dict, List, Optional, Union
 import random
 from py_random_words import RandomWords
-
+from datetime import timezone, datetime, timedelta
 def get_database_name() -> str:
     return input("Enter database name: ")
 
@@ -84,11 +84,11 @@ def make_field_value_template_for_lists():
 def handle_type_input():
     while True:
         type = (
-            input("Enter field value type(string, number(float, int), list): ")
+            input("Enter field value type(string, number(float, int), list, date): ")
             .strip()
             .lower()
         )
-        if type not in ["int", "float", "string", "list"]:
+        if type not in ["int", "float", "string", "list","date"]:
             print("wrong type")
             continue
         else:
@@ -115,6 +115,13 @@ def handle_int_min_max_values(min_or_max: str):
 
 
 def generate_value(type, min=None, max=None) -> Optional[Union[int, str, float]]:
+    if type == "date":
+        now = datetime.now()
+        past_date = now - timedelta(days=1095)
+        timestamp_now = now.replace(tzinfo=timezone.utc).timestamp()
+        past_timestamp = past_date.replace(tzinfo=timezone.utc).timestamp()
+        random_utc = random.uniform(past_timestamp, timestamp_now)
+        return datetime.utcfromtimestamp(random_utc).strftime("%Y-%m-%d")
     if type == "string":
         r = RandomWords()
         return r.get_word()
