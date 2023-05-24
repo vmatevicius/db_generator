@@ -1,6 +1,6 @@
 from typing import Dict, List, Optional, Union
 import random
-from random_word import RandomWords
+from py_random_words import RandomWords
 
 def get_database_name() -> str:
     return input("Enter database name: ")
@@ -117,7 +117,7 @@ def handle_int_min_max_values(min_or_max: str):
 def generate_value(type, min=None, max=None) -> Optional[Union[int, str, float]]:
     if type == "string":
         r = RandomWords()
-        return r.get_random_word()
+        return r.get_word()
     if type == "int":
         return random.randint(min, max)
     if type == "float":
