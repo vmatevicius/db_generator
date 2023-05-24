@@ -128,7 +128,7 @@ def generate_value(type, min=None, max=None) -> Optional[Union[int, str, float]]
     if type == "int":
         return random.randint(min, max)
     if type == "float":
-        return random.uniform(min, max)
+        return round(random.uniform(min, max),2)
 
 
 def get_number_of_docs_to_create() -> int:
